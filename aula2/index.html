@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot - Machine Learning & NLP</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 420px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .chat-messages {
+      padding: 15px;
+      height: 360px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bot-message,
+    .user-message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      max-width: 85%;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .bot-message {
+      background: #ecf0f1;
+      align-self: flex-start;
+    }
+
+    .user-message {
+      background: #3498db;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .chat-input button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .chat-input button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      🤖 Chatbot - Machine Learning & NLP
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="bot-message">
+        Olá! 👋 <br>
+        Pergunte algo sobre <b>Machine Learning</b> ou <b>Processamento de Linguagem Natural</b>.
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Digite sua pergunta..."
+        autocomplete="off"
+      />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    const chatMessages = document.getElementById("chatMessages");
+    const userInput = document.getElementById("userInput");
+
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      addMessage(message, "user-message");
+      userInput.value = "";
+
+      setTimeout(() => {
+        const response = botResponse(message);
+        addMessage(response, "bot-message");
+      }, 400);
+    }
+
+    function addMessage(text, className) {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = className;
+      messageDiv.innerHTML = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botResponse(input) {
+      const text = input.toLowerCase();
+
+      // MACHINE LEARNING
+      if (text.includes("machine learning") || text.includes("aprendizado de máquina")) {
+        return "Machine Learning é uma área da Inteligência Artificial que permite que sistemas aprendam padrões a partir de dados sem programação explícita.";
+      }
+
+      if (text.includes("supervisionado")) {
+        return "Aprendizado supervisionado usa dados rotulados para treinar modelos, como regressão linear, SVM e árvores de decisão.";
+      }
+
+      if (text.includes("não supervisionado") || text.includes("nao supervisionado")) {
+        return "Aprendizado não supervisionado identifica padrões em dados sem rótulos, como clustering (K-Means) e redução de dimensionalidade.";
+      }
+
+      if (text.includes("overfitting")) {
+        return "Overfitting ocorre quando o modelo aprende muito bem os dados de treino, mas generaliza mal para novos dados.";
+      }
+
+      // NLP
+      if (text.includes("nlp") || text.includes("processamento de linguagem")) {
+        return "Processamento de Linguagem Natural (NLP) permite que máquinas entendam, interpretem e gerem linguagem humana.";
+      }
+
+      if (text.includes("tokenização")) {
+        return "Tokenização é o processo de dividir o texto em unidades menores, como palavras ou subpalavras.";
+      }
+
+      if (text.includes("stemming") || text.includes("lemmatization") || text.includes("lematização")) {
+        return "Stemming e lemmatization reduzem palavras à sua forma base para facilitar a análise textual.";
+      }
+
+      if (text.includes("transformer")) {
+        return "Transformers são modelos baseados em mecanismos de atenção, usados em arquiteturas como BERT, GPT e T5.";
+      }
+
+      if (text.includes("bert") || text.includes("gpt")) {
+        return "BERT e GPT são modelos baseados em Transformers. BERT é bidirecional e focado em compreensão; GPT é autorregressivo e focado em geração.";
+      }
+
+      // FALLBACK
+      return "Ainda não sei responder isso 😅. Tente perguntar sobre conceitos de ML ou NLP.";
+    }
+
+    userInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+
